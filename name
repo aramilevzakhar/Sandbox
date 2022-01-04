@@ -1,0 +1,12 @@
+AX (primary accumulator) - used for input / output and in most arithmetic operations. 
+	For example, in a multiplication operation, 
+	one operand is stored in the EAX / AX / AL register according to the size of the operand.
+
+BX (base register) - used for indexed addressing.
+
+CX (count register) - stores the number of cycles in repeated 
+	operations (as well as registers ECX and CX).
+
+DX (data register) - used in I / O operations, 
+	as well as with the AX and DX registers to perform multiplication and division 
+	operations associated with large values. 
