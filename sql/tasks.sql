@@ -221,6 +221,17 @@ sex boolean
 
 )
 
+do $$
+	declare
+		counter interer := 0;
+	begin
+		while counter < 10 loop
+			insert into users (first_name) values ('sseee');
+			counter := counter + 1;
+		end loop;
+end$$;
+
+
 
 
 
