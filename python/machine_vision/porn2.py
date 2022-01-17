@@ -30,13 +30,11 @@ while True:
     #blank[:] = (0, 255, 0)
     #img = cv2.resize(img, (img.shape[1]//2, img.shape[0]//2))
     #img = cv2.GaussianBlur(img, (21, 21), 0)
-
-
-
     #img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     faces = cv2.CascadeClassifier('faces1.xml')
     results = faces.detectMultiScale(gray, scaleFactor=2, minNeighbors=5)
     #img = cv2.Canny(img, 60, 60)
+    print(results)
     #print('s', end=)
     for (x, y, w, h) in results:
         #img = cv2.rectangle(img, (x, y), (x+w, y+h), (0, 0, 255), thickness=3)
@@ -44,7 +42,7 @@ while True:
         blank = cv2.rectangle(blank, (x, y), (x+w, y+h), (0, 255, 0), thickness=3)
         #img = cv2.bitwise_and(img, blank)
         img = cv2.bitwise_or(img, blank)
-        print(x, y, w, h)
+        #print(x, y, w, h)
         img = cv2.putText(img, "Human", (x - 10, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.4, 255)
         #img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     #img = cv2.Canny(img, 1, 1)
@@ -64,8 +62,6 @@ while True:
     #img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     #b, g, r = cv2.split(img)
     #img = cv2.merge([g, b, g])
-
-
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break

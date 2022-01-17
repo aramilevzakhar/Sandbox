@@ -6,6 +6,10 @@ typedef struct Node {
 	struct Node* next;
 } Node;
 
+
+
+
+
 void add_element_end(int value, Node* lis) {
 	// узел который будет добавляться в конец
 	Node* tmp = (Node*)malloc(sizeof(Node));
@@ -82,7 +86,14 @@ void free_list(Node* lis) {
 		free(ptr);
 	}
 }
+
+
+
+
+
 int main() {
+
+    
 	Node* lis = (Node*)malloc(sizeof(Node));
 	lis->value = 777;
 	lis->next = NULL;
@@ -91,6 +102,12 @@ int main() {
 	
 	add_element_end(1, lis);
 	add_element_end(2, lis);
+    
+    show_elements(lis);
+    // int a=10, b;
+    // __asm__("sidt %0\n" : :"m"(loc));
+    
+    /*
 	
 	lis = add_element_start(13, lis);
 	
@@ -117,6 +134,8 @@ int main() {
 		add_element_end(666, lis);
 	}
 	free_list(lis);
-	show_elements(lis);
+	
+    */
+
 	return 0;
 }
