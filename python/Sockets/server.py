@@ -5,9 +5,6 @@ from  sock1 import Socket
 
 s = Socket()
 
-
-
-
 #socket.socket()
 #s = socket.socket(family: socket.AF_INET, socket.SOCK_STREAM)
 s = Server(socket.AF_INET, socket.SOCK_STREAM)
@@ -27,7 +24,7 @@ users = []
 
 def send_all(whose_msg, data):
     for user in users:
-        if user != whose_msg:
+       if user != whose_msg:
             user.send(data)
 
 def listen_server(user):

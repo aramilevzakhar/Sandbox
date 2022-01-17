@@ -16,7 +16,7 @@ port = 50007              # The same port as used by the server
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect((host, port))
 
-def inp(name_user, socket_handler):
+def start_input(name_user, socket_handler):
     x = threading.Thread(target=listen_server, args=(socket_handler,), daemon=True)
     x.start()
     #await asyncio.create_task(listen_server(5, 'hello'))
@@ -30,19 +30,13 @@ def listen_server(user_socket):
         #await asyncio.sleep(0.01)
         data = user_socket.recv(2048)
         print(data.decode('utf-8'))
-
-
-#def send_server():
     
-
-
-
 
 if __name__ == '__main__':
     my_name = input('Type your name: ')
 
     try:
-        inp(my_name, client)
+        start_input(my_name, client)
     except Exception:
         #except KeyboardInterrupt ^ ConnectionResetError:
         print("hello")

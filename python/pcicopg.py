@@ -30,10 +30,15 @@ def func2():
     conn.close()
 
 
+def func3():
+    for _ in range(1000):
+        s = input("hell: ")
+
+
 #async def main():
 def main():
     # Connect to your postgres DB
-    names = nanika.name().getNames()
+    #names = nanika.name().getNames()
     #conn = psycopg2.connect(dbname='smile', user='smile', host='192.168.50.78', port='5432', password='123')
     #conn = psycopg2.connect(dbname='zakhar', user='zakhar', host='127.0.0.1', port='5432', password='123')
     # Open a cursor to perform database operations
@@ -46,9 +51,9 @@ def main():
     #cursor.execute(f'select nickname from users')
     #lst = show_sql_req(cursor)
     #task = asyncio.create_task(func(cursor, names))
-    x = threading.Thread(target=func1, args=(names,))
+    #x = threading.Thread(target=func3, daemon=True)
+    x = threading.Thread(target=func3, daemon=True)
     x.start()
-
 
     #await task
     logging.info('main is complete ')
@@ -61,6 +66,7 @@ def main():
     #cursor.execute("SELECT * FROM users;")
     #show_sql_req(cursor)
     # Retrieve query results
+    x.join()
     #records = cursor.fetchall()
 if __name__ == '__main__':
     #asyncio.run(main())
