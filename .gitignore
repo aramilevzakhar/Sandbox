@@ -1,6 +1,6 @@
 *.xml
 *.mp4
-#*
+\#*
 *.o
 *.obj
 *__pycache__
