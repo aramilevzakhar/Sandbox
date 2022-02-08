@@ -1,13 +1,14 @@
 import sys
 import socket
 import threading
-from  sock1 import Socket
 
-s = Socket()
+
+#s = Socket()
 
 #socket.socket()
-#s = socket.socket(family: socket.AF_INET, socket.SOCK_STREAM)
-s = Server(socket.AF_INET, socket.SOCK_STREAM)
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#s = Server(socket.AF_INET, socket.SOCK_STREAM)
+
 
 
 s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -34,16 +35,17 @@ def listen_server(user):
         print(f'user sent {data}')
         send_all(user, data)
 
+
+
+
+
 def start_server():
     while True:
-        # set connections 
+        # set connections x
         clientsocket, address = s.accept()
         print(f"Connection from {address} has been established!\n{clientsocket}")
         #clientsocket.send(bytes('Welcome to the server!', 'utf-8'))
-
         #data = clientsocket.recv(1024)
-        
-
         #print(data.decode('utf-8'))
         users.append(clientsocket)
         threadslissen = threading.Thread(target=listen_server, args=(clientsocket,), daemon=True)

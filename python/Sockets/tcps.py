@@ -1,27 +1,68 @@
 import socket
-
+import threading
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server.bind((socket.gethostname(), 9999))
-
-
-
-
-
-
-
+server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+server.bind((socket.gethostname(), 6666))
 server.listen()
+users = []
 
-while True:
-    client, addr = server.accept()
-    print(f'Connected to {addr}')
-    print(client.recv(1024).decode('utf-8'))
-    client.send('Hello client!'.encode('utf-8'))
 
-    print(client.recv(1024).decode('utf-8'))
-    client.send('Buy!'.encode('utf-8'))
-    client.close()
 
+
+def listen(client, addr):
+    while True:
+        try:
+            message = client.recv(1024)
+        except Exception as e:
+            print(e)
+            break
+
+        sss1 = message.decode('utf-8').split(' ')[-1]
+        #print(sss1)
+        print(message.decode('utf-8'))
+        for user in users:
+            if user != client:
+                try:
+                    #print(message)
+                    user.send(message)
+                except Exception as e:
+                    print("error in send")
+                    break
+
+        if sss1 == 'exit':
+            client.close()
+            users.remove(client)
+            break
+
+
+
+def main():
+    i = 0
+    while True:
+
+        print(i, len(users))
+        client, addr = server.accept()
+        users.append(client)
+        i += 1
+
+
+        
+
+        print(f'Connected to {addr}')
+        s = threading.Thread(target=listen, args=(client, addr), daemon=True)
+        s.start()
+
+    
+        #msg = input('Type message')
+
+        #client.send(msg.encode('utf-8'))
+
+
+        #client.close()
+
+if __name__ == '__main__':
+    main()
 
 
 
