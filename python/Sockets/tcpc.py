@@ -1,15 +1,16 @@
 import socket
 import threading
+import multiprocessing 
 import time
 import sys
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
 client.connect((socket.gethostname(), 6666))
 
 
 
-def listen(client):
+
+def lissen_server(client):
     msg1 = 0
     acc = 0
     while True:
@@ -22,30 +23,20 @@ def listen(client):
         if msg1 == msg:
             acc += 1
         else:
-            acc = 0;
+            acc = 0
 
         if acc == 100:
-            break
+            #break
+            #sys.exit()
+            #sys.exit()
+            raise SystemExit
+
         msg1 = msg
         print(acc, msg)
 
-
-
-def main(client):
-    myname = input('Type your name: ')
-
-
-    try:
-        s = threading.Thread(target=listen, args=(client, ), daemon=True)
-        s.start()
-    except:
-        print('Some mistake...')
-
+def lissen_me(client, myname):
     while True:
-        try:
-            msg = input()
-        except KeyboardInterrupt:
-            msg = 'exit'
+        msg = input()
 
         res = "[ " + myname + " ]: " + msg
 
@@ -58,8 +49,25 @@ def main(client):
             break
         if msg == 'exit'.lower():
             break
-    print('End main')
 
+
+def main(client):
+    myname = input('Type your name: ')
+
+
+    try:
+        s1 = threading.Thread(target=lissen_server, args=(client, ), daemon=True)
+        s2 = threading.Thread(target=lissen_me, args=(client, myname, ), daemon=True)
+
+        s1.start()
+        s2.start()
+
+        s1.join()
+        #s2.join()
+
+    except KeyboardInterrupt:
+        res = "[ " + myname + " ]: exit"
+        client.send(res.encode('utf-8'))
 
 if __name__ == '__main__':
     main(client)
