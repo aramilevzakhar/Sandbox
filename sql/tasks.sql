@@ -1,4 +1,4 @@
--- https://sql-ex.ru/
+https://sql-ex.ru/
 select
   distinct maker
 from
@@ -140,14 +140,14 @@ having count(hd)>1;
 
 
 -- 16
---select 
---fi1.ram, fi1.speed, fi2.ram, fi2.speed
---from
---(select ram, speed
---from PC) as fi1,
---(select ram, speed
---from PC) as fi2
---where fi1.ram=fi2.ram and fi1.speed=fi2.speed
+select 
+fi1.ram, fi1.speed, fi2.ram, fi2.speed
+from
+(select ram, speed
+from PC) as fi1,
+(select ram, speed
+from PC) as fi2
+where fi1.ram=fi2.ram and fi1.speed=fi2.speed
 
 
 select t1.model, t2.model, t1.speed, t1.ram
